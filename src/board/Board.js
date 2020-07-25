@@ -30,9 +30,24 @@ class Board extends React.Component {
     render () {
         const winner = calculateWinner(this.state.squares);
         let status;
+        let  allBoxesClick = false;
+        var count = 0
+      let forDrawSquares =  this.state.squares.slice();
+      for(let i = 0 ; i < forDrawSquares.length;i++)
+      {
+          if(forDrawSquares[i] != null)
+          {
+           count++;
+          }
+          
+      }
         if(winner)
         {
             status = 'Winner: ' + winner;
+        }
+        else if (count  === 9){
+
+            status = "draw"
         }
         else {
         status = 'Next player: ' + (this.state.xIsNext ? 'X' : 'O');
@@ -77,11 +92,13 @@ function calculateWinner(squares) {
       [2, 4, 6],
     ];
     for (let i = 0; i < lines.length; i++) {
+        console.log()
       const [a, b, c] = lines[i];
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
         return squares[a];
       }
     }
+  
     return null;
   }
 export default Board;
